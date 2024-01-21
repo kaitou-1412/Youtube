@@ -1,12 +1,25 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { toggleSidebar } from "../utils/slices/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleSidebar, login, logout } from "../utils/slices/appSlice";
+import { Link } from "react-router-dom";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 
 const Header = () => {
+  const isLoggedIn = useSelector((store) => store.app.isLoggedIn);
+
   const dispatch = useDispatch();
   const toggleSidebarHandler = () => {
     dispatch(toggleSidebar());
   };
+  const loginHandler = useGoogleLogin({
+    onSuccess: (response) => dispatch(login(response.access_token)),
+    onError: (error) => console.log(`Login Failed: ${error}`),
+  });
+  const logoutHandler = () => {
+    googleLogout();
+    dispatch(logout());
+  };
+
   return (
     <div className="grid grid-flow-col px-5 py-4 shadow-lg">
       <div className="flex items-center col-span-1">
@@ -16,11 +29,13 @@ const Header = () => {
           alt="hamburger menu icon"
           onClick={toggleSidebarHandler}
         />{" "}
-        <img
-          className="h-6 mx-2"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png"
-          alt="Youtube Logo"
-        />
+        <Link to="/">
+          <img
+            className="h-6 mx-2"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png"
+            alt="Youtube Logo"
+          />
+        </Link>
       </div>
       <div className="col-span-10 px-20">
         <input
@@ -32,12 +47,17 @@ const Header = () => {
           🔍
         </button>
       </div>
-      <div className="col-span-1 flex items-center justify-center">
+      <div className="col-span-1 flex items-center justify-around">
         <img
           className="h-10"
           src="https://www.svgrepo.com/show/350417/user-circle.svg"
           alt="User Icon"
         />
+        {isLoggedIn ? (
+          <button onClick={logoutHandler}>Logout</button>
+        ) : (
+          <button onClick={loginHandler}>Login</button>
+        )}
       </div>
     </div>
   );

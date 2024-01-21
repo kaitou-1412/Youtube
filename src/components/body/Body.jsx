@@ -1,12 +1,12 @@
 import React from "react";
 import Sidebar from "./sidebar/Sidebar";
-import Main from "./main/Main";
+import { Outlet } from "react-router-dom";
 
 const Body = () => {
   return (
     <div className="flex-grow grid grid-flow-col">
-      <Sidebar></Sidebar>
-      <Main></Main>
+      <Sidebar />
+      <Outlet />
     </div>
   );
 };

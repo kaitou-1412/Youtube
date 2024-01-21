@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 const SECTION_DATA = [
   {
     heading: "",
-    tabs: ["Home", "Shorts", "Videos", "Live"],
+    tabs: [<Link to="/">Home</Link>, "Shorts", "Videos", "Live"],
   },
   {
     heading: "Subscriptions",
@@ -13,17 +15,25 @@ const SECTION_DATA = [
   },
 ];
 
-const { GOOGLE_API_KEY, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET } = process.env;
+const MAX_LABELS = 7;
+
+const {
+  REACT_APP_GOOGLE_API_KEY,
+  REACT_APP_OAUTH_CLIENT_ID,
+  REACT_APP_OAUTH_CLIENT_SECRET,
+} = process.env;
 
 const YOUTUBE_API = {
-  VideoCategoriesList: `https://youtube.googleapis.com/youtube/v3/videoCategories?key=${GOOGLE_API_KEY}`,
-  VideosList: `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=60&regionCode=IN&key=${GOOGLE_API_KEY}`,
+  VideoCategoriesList: `https://youtube.googleapis.com/youtube/v3/videoCategories?regionCode=US&key=${REACT_APP_GOOGLE_API_KEY}`,
+  VideosList: `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=${REACT_APP_GOOGLE_API_KEY}`,
+  VideoDetail: `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2Cplayer&key=${REACT_APP_GOOGLE_API_KEY}`,
 };
 
 export {
   SECTION_DATA,
+  MAX_LABELS,
   YOUTUBE_API,
-  GOOGLE_API_KEY,
-  OAUTH_CLIENT_ID,
-  OAUTH_CLIENT_SECRET,
+  REACT_APP_GOOGLE_API_KEY,
+  REACT_APP_OAUTH_CLIENT_ID,
+  REACT_APP_OAUTH_CLIENT_SECRET,
 };
