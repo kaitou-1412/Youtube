@@ -1,7 +1,22 @@
 import React from "react";
+import SidebarSection from "./sidebar-section/SidebarSection";
+import { SECTION_DATA } from "../../../utils/constants";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
-  return <div>Sidebar</div>;
+  const isSidebarOpen = useSelector((store) => store.app.isSidebarOpen);
+
+  // Early return pattern
+  if (!isSidebarOpen) return null;
+
+  return (
+    <div className="col-span-1 p-5 shadow-lg">
+      {SECTION_DATA.length > 0 &&
+        SECTION_DATA.map((section, index) => (
+          <SidebarSection key={index} {...section} />
+        ))}
+    </div>
+  );
 };
 
 export default Sidebar;

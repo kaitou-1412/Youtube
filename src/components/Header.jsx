@@ -1,13 +1,20 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { toggleSidebar } from "../utils/slices/appSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const toggleSidebarHandler = () => {
+    dispatch(toggleSidebar());
+  };
   return (
     <div className="grid grid-flow-col px-5 py-4 shadow-lg">
       <div className="flex items-center col-span-1">
         <img
-          className="h-8 mx-2"
+          className="h-8 mx-2 cursor-pointer"
           src="https://cdn.iconscout.com/icon/free/png-256/free-hamburger-menu-462145.png?f=webp"
           alt="hamburger menu icon"
+          onClick={toggleSidebarHandler}
         />{" "}
         <img
           className="h-6 mx-2"
