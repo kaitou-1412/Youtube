@@ -3,9 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleSidebar, login, logout } from "../utils/slices/appSlice";
 import { Link } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import useSearch from "../hooks/useSearch";
 
 const Header = () => {
   const isLoggedIn = useSelector((store) => store.app.isLoggedIn);
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchSuggestions,
+    showSuggestions,
+    setShowSuggestions,
+  } = useSearch();
 
   const dispatch = useDispatch();
   const toggleSidebarHandler = () => {
@@ -38,15 +46,33 @@ const Header = () => {
         </Link>
       </div>
       <div className="col-span-10 px-20">
-        <input
-          className="w-2/3 border border-r-0  border-gray-400 px-5 py-2 text-xl rounded-l-full"
-          type="text"
-          placeholder="Search"
-        />
-        <button className="border border-gray-400 bg-gray-100 px-7 py-2 text-xl rounded-r-full">
-          🔍
-        </button>
+        <div>
+          <input
+            className="w-2/3 border border-r-0  border-gray-400 px-5 py-2 text-xl rounded-l-full"
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setShowSuggestions(false)}
+          />
+          <button className="border border-gray-400 bg-gray-100 px-7 py-2 text-xl rounded-r-full">
+            🔍
+          </button>
+        </div>
+        {showSuggestions && searchSuggestions.length > 0 && (
+          <div className="absolute bg-white mt-1 py-2 px-5 w-[39rem] shadow-lg rounded-lg border border-gray-100">
+            <ul>
+              {searchSuggestions.map((suggestion, index) => (
+                <li key={index} className="py-2 shadow-sm hover:bg-gray-100">
+                  🔍 {suggestion}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
+
       <div className="col-span-1 flex items-center justify-around">
         <img
           className="h-10"
