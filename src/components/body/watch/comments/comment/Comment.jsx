@@ -1,8 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const Comment = ({ name, text, replies }) => {
+const Comment = ({ name, text }) => {
+  const darkTheme = useSelector((store) => store.app.darkTheme);
   return (
-    <div className="flex shadow-sm bg-gray-100 p-2 rounded-lg my-2 ">
+    <div
+      className={
+        "flex p-2 my-2 shadow-sm rounded-lg" +
+        (darkTheme ? " bg-darkModeGray" : " bg-gray-100")
+      }
+    >
       <img
         className="w-12 h-12"
         src="https://www.svgrepo.com/show/350417/user-circle.svg"

@@ -1,12 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleSidebar, login, logout } from "../utils/slices/appSlice";
+import {
+  toggleSidebar,
+  login,
+  logout,
+  toggleDarkTheme,
+} from "../utils/slices/appSlice";
 import { Link } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import useSearch from "../hooks/useSearch";
 
 const Header = () => {
   const isLoggedIn = useSelector((store) => store.app.isLoggedIn);
+  const darkTheme = useSelector((store) => store.app.darkTheme);
   const {
     searchQuery,
     setSearchQuery,
@@ -27,20 +33,38 @@ const Header = () => {
     googleLogout();
     dispatch(logout());
   };
+  const darkThemeHandler = () => {
+    dispatch(toggleDarkTheme());
+  };
 
   return (
-    <div className="grid grid-flow-col px-5 py-4 shadow-lg">
+    <div
+      className={
+        "grid grid-flow-col px-5 py-4 shadow-lg" +
+        (darkTheme
+          ? " bg-darkModeDarkGray text-white  border-b border-b-darkModeGray"
+          : "")
+      }
+    >
       <div className="flex items-center col-span-1">
         <img
           className="h-8 mx-2 cursor-pointer"
-          src="https://cdn.iconscout.com/icon/free/png-256/free-hamburger-menu-462145.png?f=webp"
+          src={
+            darkTheme
+              ? "https://cdn2.vectorstock.com/i/1000x1000/33/01/hamburger-like-menu-dark-mode-glyph-ui-icon-vector-43353301.jpg"
+              : "https://cdn.iconscout.com/icon/free/png-256/free-hamburger-menu-462145.png?f=webp"
+          }
           alt="hamburger menu icon"
           onClick={toggleSidebarHandler}
         />{" "}
         <Link to="/">
           <img
-            className="h-6 mx-2"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png"
+            className={darkTheme ? "h-16 mx-2" : "h-6 mx-2"}
+            src={
+              darkTheme
+                ? "https://cdn.neowin.com/news/images/uploaded/2018/01/1516306436_youtube4_story.jpg"
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png"
+            }
             alt="Youtube Logo"
           />
         </Link>
@@ -48,7 +72,10 @@ const Header = () => {
       <div className="col-span-10 px-20">
         <div>
           <input
-            className="w-2/3 border border-r-0  border-gray-400 px-5 py-2 text-xl rounded-l-full"
+            className={
+              "w-2/3 border border-r-0  border-gray-400 px-5 py-2 text-xl rounded-l-full" +
+              (darkTheme ? " bg-darkModeBlack" : "")
+            }
             type="text"
             placeholder="Search"
             value={searchQuery}
@@ -56,12 +83,24 @@ const Header = () => {
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setShowSuggestions(false)}
           />
-          <button className="border border-gray-400 bg-gray-100 px-7 py-2 text-xl rounded-r-full">
+          <button
+            className={
+              "border border-gray-400 px-7 py-2 text-xl rounded-r-full" +
+              (darkTheme ? " bg-darkModeGray" : " bg-gray-100")
+            }
+          >
             🔍
           </button>
         </div>
         {showSuggestions && searchSuggestions.length > 0 && (
-          <div className="absolute bg-white mt-1 py-2 px-5 w-[39rem] shadow-lg rounded-lg border border-gray-100">
+          <div
+            className={
+              "absolute mt-1 py-2 px-5 w-[37.5rem] shadow-lg rounded-lg border" +
+              (darkTheme
+                ? " bg-darkModeDarkGray border-darkModeGray"
+                : " bg-white border-gray-100")
+            }
+          >
             <ul>
               {searchSuggestions.map((suggestion, index) => (
                 <li key={index} className="py-2 shadow-sm hover:bg-gray-100">
@@ -74,9 +113,16 @@ const Header = () => {
       </div>
 
       <div className="col-span-1 flex items-center justify-around">
+        <button className="text-2xl" onClick={darkThemeHandler}>
+          {darkTheme ? "🌞" : "🌚"}
+        </button>
         <img
           className="h-10"
-          src="https://www.svgrepo.com/show/350417/user-circle.svg"
+          src={
+            darkTheme
+              ? "https://cdn4.vectorstock.com/i/1000x1000/97/68/account-avatar-dark-mode-glyph-ui-icon-vector-44429768.jpg"
+              : "https://www.svgrepo.com/show/350417/user-circle.svg"
+          }
           alt="User Icon"
         />
         {isLoggedIn ? (
