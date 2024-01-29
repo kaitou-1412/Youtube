@@ -19,6 +19,10 @@ const Header = () => {
     searchSuggestions,
     showSuggestions,
     setShowSuggestions,
+    onSearch,
+    handleKeyDown,
+    selectedSuggestion,
+    setSelectedSuggestion,
   } = useSearch();
 
   const dispatch = useDispatch();
@@ -76,18 +80,21 @@ const Header = () => {
               "w-2/3 border border-r-0  border-gray-400 px-5 py-2 text-xl rounded-l-full" +
               (darkTheme ? " bg-darkModeBlack" : "")
             }
-            type="text"
+            type="search"
             placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setShowSuggestions(false)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            onKeyDown={handleKeyDown}
           />
           <button
             className={
               "border border-gray-400 px-7 py-2 text-xl rounded-r-full" +
               (darkTheme ? " bg-darkModeGray" : " bg-gray-100")
             }
+            onClick={(e) => onSearch(e, searchQuery)}
+            disabled={searchQuery === ""}
           >
             🔍
           </button>
@@ -101,13 +108,26 @@ const Header = () => {
                 : " bg-white border-gray-100")
             }
           >
-            <ul>
-              {searchSuggestions.map((suggestion, index) => (
-                <li key={index} className="py-2 shadow-sm hover:bg-gray-100">
-                  🔍 {suggestion}
-                </li>
-              ))}
-            </ul>
+            {searchSuggestions.map((suggestion, index) => (
+              <div
+                key={index}
+                className={
+                  "py-2 shadow-sm" +
+                  (darkTheme
+                    ? " hover:bg-darkModeGray"
+                    : " hover:bg-gray-100") +
+                  (selectedSuggestion === index
+                    ? darkTheme
+                      ? " bg-darkModeGray"
+                      : " bg-gray-100"
+                    : "")
+                }
+                onClick={(e) => onSearch(e, suggestion)}
+                onMouseOver={() => setSelectedSuggestion(-1)}
+              >
+                🔍 {suggestion}
+              </div>
+            ))}
           </div>
         )}
       </div>

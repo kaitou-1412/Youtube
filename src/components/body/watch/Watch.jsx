@@ -9,7 +9,7 @@ const Watch = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
-  const [video] = useVideo(videoId);
+  const [video] = useVideo({ id: videoId });
 
   useEffect(() => {
     dispatch(closeSidebar());

@@ -3,8 +3,8 @@ import useVideo from "../../../../hooks/useVideo";
 import VideoCard from "./video-card/VideoCard";
 import { Link } from "react-router-dom";
 
-const VideoContainer = () => {
-  const videos = useVideo();
+const VideoContainer = ({ searchQuery }) => {
+  const videos = useVideo({ searchQuery: searchQuery });
 
   if (videos.length === 0) return null;
 

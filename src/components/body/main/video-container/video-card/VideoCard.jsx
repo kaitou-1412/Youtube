@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 const VideoCard = ({ snippet, statistics }) => {
   const { title, channelTitle, thumbnails } = snippet;
-  const { viewCount } = statistics;
   const darkTheme = useSelector((store) => store.app.darkTheme);
   return (
     <div
@@ -16,7 +15,7 @@ const VideoCard = ({ snippet, statistics }) => {
       <ul>
         <li className="font-bold py-2">{title}</li>
         <li>{channelTitle}</li>
-        <li>{viewCount} views</li>
+        {statistics && <li>{statistics?.viewCount} views</li>}
       </ul>
     </div>
   );
