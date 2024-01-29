@@ -30,6 +30,7 @@ const YOUTUBE_API = {
   Search:
     "http://suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=",
   SearchVideosList: `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&key=${REACT_APP_GOOGLE_API_KEY}`,
+  Comments: `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&key=${REACT_APP_GOOGLE_API_KEY}`,
 };
 
 export {

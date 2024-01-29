@@ -40,7 +40,7 @@ const Watch = () => {
             </ul>
           )}
         </div>
-        <Comments />
+        <Comments videoId={videoId} />
       </div>
     </div>
   );
