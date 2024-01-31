@@ -24,7 +24,7 @@ const Comments = ({ videoId }) => {
   const comments = useComment(videoId);
   if (comments.length === 0) return null;
   return (
-    <div className="m-5 p-2">
+    <div className="m-5 p-2 w-[1100px]">
       <h1 className="text-2xl font-bold ">Comments:</h1>
       <CommentsList comments={comments} />
     </div>

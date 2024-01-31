@@ -33,6 +33,9 @@ const YOUTUBE_API = {
   Comments: `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&key=${REACT_APP_GOOGLE_API_KEY}`,
 };
 
+const CHAT_POLL_INTERVAL = 2000;
+const OFFSET_LIVE_CHAT = 20;
+
 export {
   SECTION_DATA,
   MAX_LABELS,
@@ -40,4 +43,6 @@ export {
   REACT_APP_GOOGLE_API_KEY,
   REACT_APP_OAUTH_CLIENT_ID,
   REACT_APP_OAUTH_CLIENT_SECRET,
+  CHAT_POLL_INTERVAL,
+  OFFSET_LIVE_CHAT,
 };

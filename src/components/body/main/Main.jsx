@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import VideoLabels from "./video-labels/VideoLabels";
 import VideoContainer from "./video-container/VideoContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { openSidebar } from "../../../utils/slices/appSlice";
+import { openSidebar } from "../../../redux/appSlice";
 import { useSearchParams } from "react-router-dom";
 
 const Main = () => {

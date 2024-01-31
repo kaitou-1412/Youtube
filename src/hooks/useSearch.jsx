@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { YOUTUBE_API } from "../utils/constants";
 import { readStream } from "../utils/helper";
 import { useDispatch, useSelector } from "react-redux";
-import { cacheResults } from "../utils/slices/searchSlice";
+import { cacheResults } from "../redux/searchSlice";
 import { useNavigate } from "react-router-dom";
 
 const useSearch = () => {

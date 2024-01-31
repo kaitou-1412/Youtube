@@ -5,7 +5,7 @@ import {
   login,
   logout,
   toggleDarkTheme,
-} from "../utils/slices/appSlice";
+} from "../redux/appSlice";
 import { Link } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import useSearch from "../hooks/useSearch";
