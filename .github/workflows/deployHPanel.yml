@@ -21,7 +21,7 @@ jobs:
       - name: 🔨 Build Project
         run: |
           npm install
-          CI=false REACT_APP_GOOGLE_API_KEY=${{vars.GOOGLE_API_KEY}} npm run build
+          CI=false REACT_APP_GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }} npm run build
       - name: List output files
         run: find build/ -print
       - name: 📂 Sync files
