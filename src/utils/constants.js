@@ -55,7 +55,7 @@ const SECTION_DATA = [
   },
 ];
 
-const MAX_LABELS = 7;
+const MAX_LABELS = 8;
 
 const { REACT_APP_GOOGLE_API_KEY } = process.env;
 
