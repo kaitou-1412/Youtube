@@ -22,7 +22,7 @@ const CommentsList = ({ comments }) => {
 const Comments = ({ videoId }) => {
   // N-Level Nested Comments
   const comments = useComment(videoId);
-  if (comments.length === 0) return null;
+  if (!comments) return null;
   return (
     <div className="m-5 p-2 w-[1100px]">
       <h1 className="text-2xl font-bold ">Comments:</h1>

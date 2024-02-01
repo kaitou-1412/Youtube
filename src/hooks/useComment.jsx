@@ -13,7 +13,7 @@ const useComment = (videoId) => {
     const data = await fetch(api);
     let { items } = await data.json();
     // TODO: Mapping needs to be automated for n-level nested comments, it's fine for 2-level nesting though!
-    items = items.map((item) => ({
+    items = items?.map((item) => ({
       name: item?.snippet?.topLevelComment?.snippet?.authorDisplayName,
       text: item?.snippet?.topLevelComment?.snippet?.textOriginal,
       replies: item?.replies
