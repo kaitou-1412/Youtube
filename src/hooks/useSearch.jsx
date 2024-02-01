@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { YOUTUBE_API } from "../utils/constants";
-import { readStream } from "../utils/helper";
 import { useDispatch, useSelector } from "react-redux";
 import { cacheResults } from "../redux/searchSlice";
 import { useNavigate } from "react-router-dom";
+import fetchJsonp from "fetch-jsonp";
 
 const useSearch = () => {
   const searchCache = useSelector((store) => store.search);
@@ -17,10 +17,14 @@ const useSearch = () => {
   useEffect(() => {
     // DEBOUNCING
     const timer = setTimeout(() => {
-      if (searchCache[searchQuery]) {
-        setSearchSuggestions(searchCache[searchQuery]);
+      if (searchQuery !== "") {
+        if (searchCache[searchQuery]) {
+          setSearchSuggestions(searchCache[searchQuery]);
+        } else {
+          getSearchSuggestions();
+        }
       } else {
-        getSearchSuggestions();
+        setSearchSuggestions([]);
       }
     }, 200);
     setShowSuggestions(true);
@@ -30,9 +34,9 @@ const useSearch = () => {
   }, [searchQuery]);
 
   const getSearchSuggestions = async () => {
-    const data = await fetch(YOUTUBE_API.Search + searchQuery);
-    const reader = data.body.getReader();
-    const res = await readStream(reader);
+    const data = await fetchJsonp(YOUTUBE_API.Search + searchQuery);
+    let res = await data.json();
+    res = res[1].map((arr) => arr[0]);
     setSearchSuggestions(res);
     dispatch(cacheResults({ [searchQuery]: res }));
   };
