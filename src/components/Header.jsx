@@ -1,17 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  toggleSidebar,
-  login,
-  logout,
-  toggleDarkTheme,
-} from "../redux/appSlice";
+import { toggleSidebar, toggleDarkTheme } from "../redux/appSlice";
 import { Link } from "react-router-dom";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import useSearch from "../hooks/useSearch";
 
 const Header = () => {
-  const isLoggedIn = useSelector((store) => store.app.isLoggedIn);
   const darkTheme = useSelector((store) => store.app.darkTheme);
   const {
     searchQuery,
@@ -28,14 +21,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const toggleSidebarHandler = () => {
     dispatch(toggleSidebar());
-  };
-  const loginHandler = useGoogleLogin({
-    onSuccess: (response) => dispatch(login(response.access_token)),
-    onError: (error) => console.log(`Login Failed: ${error}`),
-  });
-  const logoutHandler = () => {
-    googleLogout();
-    dispatch(logout());
   };
   const darkThemeHandler = () => {
     dispatch(toggleDarkTheme());
@@ -145,11 +130,6 @@ const Header = () => {
           }
           alt="User Icon"
         />
-        {isLoggedIn ? (
-          <button onClick={logoutHandler}>Logout</button>
-        ) : (
-          <button onClick={loginHandler}>Login</button>
-        )}
       </div>
     </div>
   );

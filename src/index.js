@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { REACT_APP_OAUTH_CLIENT_ID } from "./utils/constants";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Body from "./components/body/Body";
 import Main from "./components/body/main/Main";
@@ -15,11 +13,9 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      <GoogleOAuthProvider clientId={REACT_APP_OAUTH_CLIENT_ID}>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </GoogleOAuthProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     ),
     errorElement: <Error />,
     children: [

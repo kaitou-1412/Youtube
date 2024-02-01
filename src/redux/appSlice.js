@@ -4,8 +4,6 @@ const appSlice = createSlice({
   name: "app",
   initialState: {
     isSidebarOpen: true,
-    isLoggedIn: false,
-    accessToken: null,
     darkTheme: false,
   },
   reducers: {
@@ -18,27 +16,13 @@ const appSlice = createSlice({
     closeSidebar: (state) => {
       state.isSidebarOpen = false;
     },
-    login: (state, actions) => {
-      state.accessToken = actions.payload;
-      state.isLoggedIn = true;
-    },
-    logout: (state) => {
-      state.accessToken = null;
-      state.isLoggedIn = false;
-    },
     toggleDarkTheme: (state) => {
       state.darkTheme = !state.darkTheme;
     },
   },
 });
 
-export const {
-  toggleSidebar,
-  openSidebar,
-  closeSidebar,
-  login,
-  logout,
-  toggleDarkTheme,
-} = appSlice.actions;
+export const { toggleSidebar, openSidebar, closeSidebar, toggleDarkTheme } =
+  appSlice.actions;
 
 export default appSlice.reducer;

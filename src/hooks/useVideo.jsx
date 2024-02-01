@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
 import { YOUTUBE_API } from "../utils/constants";
-import { useSelector } from "react-redux";
 
 const useVideo = ({ id, searchQuery }) => {
-  const accessToken = useSelector((store) => store.app.accessToken);
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    if (accessToken) {
-      getVideos(accessToken);
-    }
-  }, [accessToken, searchQuery]);
+    getVideos();
+  }, [searchQuery]);
 
-  const getVideos = async (accessToken) => {
-    let api = `${YOUTUBE_API.VideosList}&acess_token=${accessToken}`;
+  const getVideos = async () => {
+    let api = `${YOUTUBE_API.VideosList}`;
     if (id) {
-      api = `${YOUTUBE_API.VideoDetail}&acess_token=${accessToken}&id=${id}`;
+      api = `${YOUTUBE_API.VideoDetail}&id=${id}`;
     } else if (searchQuery) {
-      api = `${YOUTUBE_API.SearchVideosList}&acess_token=${accessToken}&q=${searchQuery}`;
+      api = `${YOUTUBE_API.SearchVideosList}&q=${searchQuery}`;
     }
     const data = await fetch(api);
     let { items } = await data.json();

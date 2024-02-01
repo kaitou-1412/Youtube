@@ -57,11 +57,7 @@ const SECTION_DATA = [
 
 const MAX_LABELS = 7;
 
-const {
-  REACT_APP_GOOGLE_API_KEY,
-  REACT_APP_OAUTH_CLIENT_ID,
-  REACT_APP_OAUTH_CLIENT_SECRET,
-} = process.env;
+const { REACT_APP_GOOGLE_API_KEY } = process.env;
 
 const YOUTUBE_API = {
   VideoCategoriesList: `https://youtube.googleapis.com/youtube/v3/videoCategories?regionCode=US&key=${REACT_APP_GOOGLE_API_KEY}`,
@@ -81,8 +77,6 @@ export {
   MAX_LABELS,
   YOUTUBE_API,
   REACT_APP_GOOGLE_API_KEY,
-  REACT_APP_OAUTH_CLIENT_ID,
-  REACT_APP_OAUTH_CLIENT_SECRET,
   CHAT_POLL_INTERVAL,
   OFFSET_LIVE_CHAT,
 };
